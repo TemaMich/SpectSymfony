@@ -31,15 +31,4 @@ class UserCrudController extends AbstractCrudController
             ->setSearchFields(['id', 'email', 'name'])
         ;
     }
-
-    /*
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
-    }
-    */
 }
