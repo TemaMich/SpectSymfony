@@ -10,18 +10,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\Tools\Pagination\Paginator;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class ListController extends Controller
+class ListController extends AbstractController
 {
     /**
      * @Route("/list", name="list")
      */
-    public function index(EntityManagerInterface $em, Request $request): Response
+    public function index(EntityManagerInterface $em, Request $request, PaginatorInterface $paginator): Response
     {
         $listPosts = $em->getRepository(Post::class)->findBy([], ['created_at' => 'DESC']);
-        $posts = $this->get('knp_paginator')->paginate(
+        $posts = $paginator->paginate(
             $listPosts,
             $request->query->get('page', 1), 5
         );
